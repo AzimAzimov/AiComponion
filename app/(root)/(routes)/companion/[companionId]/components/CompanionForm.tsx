@@ -73,8 +73,8 @@ const formSchema = z.object({
 });
 
 const CompanionForm: FC<CompanionFormProps> = ({ initialData, categories }) => {
-  const { toast } = useToast();
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

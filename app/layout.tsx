@@ -1,11 +1,14 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/Theme/theme-provider";
 import { cn } from "@/lib/utils";
-import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { useRouter } from "next/router";
+import Spinner from "@/components/Spinner/Spinner";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +22,24 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // const [isloading, setIsloading] = useState<boolean>(false)
+  // const router = useRouter()
+
+  // useEffect(() => {
+  //   router.events.on("routeChangeStart", () => {
+  //     setIsloading(true)
+  //   })
+
+  //   router.events.on("routeChangeComplete", () => {
+  //     setIsloading(false)
+  //   })
+  // }, [isloading])
+
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn("bg-secondary", inter.className)}>
+          {/* {!isloading && <Spinner/>} */}
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
