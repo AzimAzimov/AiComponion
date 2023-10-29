@@ -52,4 +52,5 @@ const ImageUpload: FC<ImageUploadProps> = ({ value, onChange, disabled }) => {
     </div>
   );
 };
+
 export default ImageUpload;

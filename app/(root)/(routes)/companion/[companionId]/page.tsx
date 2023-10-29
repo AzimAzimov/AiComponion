@@ -1,5 +1,6 @@
 import React from "react";
 import CompanionForm from "./components/CompanionForm";
+import { auth, redirectToSignIn } from "@clerk/nextjs";
 
 interface CompanionIdPage {
   params: {
@@ -8,7 +9,13 @@ interface CompanionIdPage {
 }
 
 const CompanionIdPage = async ({ params }: CompanionIdPage) => {
-  const companion = await prisma?.componion.findUnique({
+  const { userId } = auth();
+
+  if (!userId) {
+    return redirectToSignIn();
+  }
+
+  const companion = await prisma?.companion.findUnique({
     where: {
       id: params.companionId,
     },

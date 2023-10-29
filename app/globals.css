@@ -74,3 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-offset-shadow: none!important;
+  --tw-ring-shadow: none!important;
+  box-shadow: none !important;
+}

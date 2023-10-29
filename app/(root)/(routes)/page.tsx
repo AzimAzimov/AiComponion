@@ -1,19 +1,42 @@
-import Categoryes from '@/components/Categoryes'
-import SearchInput from '@/components/Search'
-import prismadb from '@/lib/prismadb'
-import { UserButton } from '@clerk/nextjs'
-import React, { FC } from 'react'
+import SearchInput from "@/components/Search";
+import prismadb from "@/lib/prismadb";
+import React, { FC } from "react";
+import Categories from "@/components/Categories";
 
-
-const RootPage:FC = async () => {
-  const categoryes = await prismadb.category.findMany()
-
-  return (
-    <div className='h-full p-4 space-y-2'>
-      <SearchInput />
-      <Categoryes data={categoryes} />
-    </div>
-  )
+interface RootPageProps {
+  searchParams: {
+    categoryId: string;
+    name: string;
+  };
 }
 
-export default RootPage
+const RootPage: FC<RootPageProps> = async ({ searchParams }) => {
+  const categories = await prismadb.category.findMany();
+  const data = await prismadb.companion.findMany({
+    where: {
+      categoryId: searchParams.categoryId,
+      name: {
+        search: searchParams.name,
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      _count: {
+        select: {
+          messages: true,
+        },
+      },
+    },
+  });
+
+  return (
+    <div className="h-full p-4 space-y-2">
+      <SearchInput />
+      <Categories data={categories} />
+    </div>
+  );
+};
+
+export default RootPage;
