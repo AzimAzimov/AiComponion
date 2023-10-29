@@ -1,7 +1,7 @@
 "use client";
-import React, { FC } from "react";
+import React from "react";
 import Link from "next/link";
-import { Menu, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
@@ -9,14 +9,12 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../Theme/ToggleThemeButton";
 import MobileSidebar from "../MobileSidebar";
 
-interface NavbarProps {}
-
 const font = Poppins({
   weight: "600",
   subsets: ["latin"],
 });
 
-const Navbar: FC = () => {
+const Navbar = () => {
   return (
     <div className="z-10 fixed w-full flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary h-16">
       <div className="flex items-center">
