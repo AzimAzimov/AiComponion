@@ -19,34 +19,40 @@ interface ChatClientProps {
 }
 
 const ChatClient: FC<ChatClientProps> = ({ companion }) => {
-  const [messages, setMessages] = useState<ChatMessageProps[]>(companion.messages)
-  const router = useRouter()
-  const {input, isLoading, handleInputChange, handleSubmit, setInput} = useCompletion({
+  const router = useRouter();
+  const [messages, setMessages] = useState<ChatMessageProps[]>(companion.messages);
+  
+  const {
+    input,
+    isLoading,
+    handleInputChange,
+    handleSubmit,
+    setInput,
+  } = useCompletion({
     api: `/api/chat/${companion.id}`,
-    onFinish(prompt, completion) {
+    onFinish(_prompt, completion) {
       const systemMessage: ChatMessageProps = {
         role: "system",
         content: completion
       };
 
-      setMessages((current) => [...current, systemMessage])
-      setInput("")
+      setMessages((current) => [...current, systemMessage]);
+      setInput("");
 
-      router.refresh()
-    }
-  })
+      router.refresh();
+    },
+  });
 
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const useMessage:ChatMessageProps = {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const userMessage: ChatMessageProps = {
       role: "user",
       content: input
     };
 
-    setMessages((current) => [...current, useMessage])
-    handleSubmit(event)
-  }
+    setMessages((current) => [...current, userMessage]);
 
+    handleSubmit(e);
+  }
 
   return (
     <div className="flex flex-col h-[100vh] p-4 space-y-2 justify-between">

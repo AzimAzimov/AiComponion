@@ -35,6 +35,7 @@ const ChatMessages:FC<ChatMessagesProps> = ({isLoading, companion, messages=[]})
       />
       {messages.map((message) => (
         <ChatMessage
+          
           key={message.content}
           role={message.role}
           content={message.content}
